@@ -1,0 +1,870 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Finding Dir on port 80 &amp; 8080</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="efc4d6da-bd14-4c0f-bf55-55d99847026b" class="page sans"><header><h1 class="page-title">Finding Dir on port 80 &amp; 8080</h1><p class="page-description"></p></header><div class="page-body"><p id="426f9d33-a974-4615-9896-1ee98ec1a074" class="">
+</p><p id="bb0229d8-2c64-4444-8122-de5304ea3c09" class="">Port - 80</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5a390299-4fae-4c19-8774-a8d22d9ee3c8" class="code"><code class="language-Bash">┌──(root㉿kali)-[/home/kali]
+└─# ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt:FUZZ -u http://192.168.124.139/FUZZ
+
+        /&#x27;___\  /&#x27;___\           /&#x27;___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.0.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://192.168.124.139/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+________________________________________________
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 74ms]
+    * FUZZ: # directory-list-2.3-medium.txt
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 75ms]
+    * FUZZ: # Attribution-Share Alike 3.0 License. To view a copy of this 
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 84ms]
+    * FUZZ: # This work is licensed under the Creative Commons 
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 91ms]
+    * FUZZ: # Copyright 2007 James Fisher
+
+[Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: public
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 239ms]
+    * FUZZ: #
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 246ms]
+    * FUZZ: # license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 261ms]
+    * FUZZ: # on atleast 2 different hosts
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 263ms]
+    * FUZZ: #
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 277ms]
+    * FUZZ: # Suite 300, San Francisco, California, 94105, USA.
+
+[Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 1ms]
+    * FUZZ: src
+
+[Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: app
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 397ms]
+    * FUZZ: # Priority ordered case sensative list, where entries were found 
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 446ms]
+    * FUZZ: # or send a letter to Creative Commons, 171 Second Street, 
+
+[Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: vendor
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 564ms]
+    * FUZZ: 
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 588ms]
+    * FUZZ: #
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 590ms]
+    * FUZZ: #
+
+[Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 1ms]
+    * FUZZ: extensions
+
+[Status: 200, Size: 3833, Words: 926, Lines: 108, Duration: 8ms]
+    * FUZZ: 
+
+[Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 12ms]
+    * FUZZ: server-status
+
+:: Progress: [220560/220560] :: Job [1/1] :: 2941 req/sec :: Duration: [0:00:47] :: Errors: 0 ::</code></pre><p id="bec992d9-fd34-4b22-8505-a66a4727ea1f" class="">
+</p><p id="b7c7de76-2ecc-463b-9f64-68c36ad6a2a6" class="">Here we need to concentrate on the status codes.</p><p id="68d810ec-a50b-4a61-a4b9-01837bd20691" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="262af810-8644-488f-9317-f45bc837c124" class="code"><code class="language-Bash">[Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 1ms]
+    * FUZZ: src
+
+[Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: app
+
+[Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: vendor
+
+[Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 2ms]
+    * FUZZ: public</code></pre><p id="469ec049-ad58-4ec9-8f2b-cf5322dcc77a" class="">
+</p><p id="e4e4048e-18d6-4628-bb54-124e17fb8165" class="">fuff found 4 directories on port - 80</p><p id="f4f8b6f3-0c2c-4fab-b64b-0704289d1016" class="">We need to check every single directory.</p><p id="ae72f04c-1bdd-493a-9568-3cc2bf3bb0b0" class="">
+</p><p id="bb3c4397-2788-48a8-8839-6cb3d2df548e" class="">On src we found:</p><figure id="f8677cb1-fc31-4e3c-a10d-66bd4e8e5131" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled.png"><img style="width:675px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled.png"/></a></figure><p id="a54e19d6-b66c-4ada-88bd-ad78b5ec2784" class="">
+</p><p id="3ff4b5bd-379a-46bb-b255-28521d39cf44" class="">On app we found:</p><figure id="9bfd5c59-1e07-4682-a35a-34b079bdb50b" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%201.png"><img style="width:655px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%201.png"/></a></figure><p id="8a0de8b7-3420-40b1-bb28-a29baa9bdf4e" class="">
+</p><p id="f15febe1-f481-4188-9052-24a27d9b2820" class="">There is a config and database file we need to checkboth.</p><p id="e2f02866-8f71-4b87-8340-2f07bdc56ceb" class=""><div class="indented"><p id="1655afb2-48aa-42d1-8c8a-edddc49e5cc1" class="">database it empty:<div class="indented"><figure id="e08dcdcd-6c7e-42c4-a15f-0fffa9c4996e" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%202.png"><img style="width:665px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%202.png"/></a></figure><p id="2ac58aea-d06d-4b30-8de4-20db95860599" class="">
+</p></div></p></div></p><p id="5e5ff924-3bb5-4606-8aba-ef89cae520ed" class="">config files contain config.yml :</p><figure id="8aba1dd1-84db-481e-997e-826fe5503ab7" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%203.png"><img style="width:622px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%203.png"/></a></figure><p id="f8cec5a7-0dc3-4a2b-b13d-2d50c9a5138e" class="">
+</p><p id="db3ffe77-62dd-4739-b89b-21ba977d56df" class="">Now lets view the file.</p><figure id="093584ab-cb4d-4a9c-b7c7-697f5861727c" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%204.png"><img style="width:930px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%204.png"/></a></figure><p id="b9c6b460-7327-430e-9b84-67ff442539bd" class="">
+</p><p id="613327d3-2f02-4311-9b12-062cc0d53a17" class="">We found a some credentials.</p><p id="d44fb6d9-bfa2-4ca2-8cc3-bf92d613c616" class="">
+</p><p id="3cf93058-9a33-44fe-8f5f-6d5b7766e9d1" class="">In vendor and public there is nothing much intresting.</p><p id="413823d8-3fe6-4c4a-b20d-dc02715a60f8" class="">
+</p><p id="6e45575e-9de7-47a1-8936-4889b894793e" class="">
+</p><p id="32492584-b28b-4b42-a4d0-34a22c0acfbe" class="">
+</p><h3 id="f8df5f44-823d-40e1-9247-4e7ae614d1b4" class="">Now on Port - 8080</h3><p id="fef1be52-3322-4f8c-9425-2026c04dd20a" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c13d4ea0-89c5-4bc9-8329-4c4434022dd2" class="code"><code class="language-Bash">┌──(root㉿kali)-[/home/kali]
+└─# ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt:FUZZ -u http://192.168.124.139:8080/FUZZ
+
+        /&#x27;___\  /&#x27;___\           /&#x27;___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.0.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://192.168.124.139:8080/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+________________________________________________
+
+[Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 7ms]
+    * FUZZ: dev
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1211ms]
+    * FUZZ: # license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1216ms]
+    * FUZZ: #
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1275ms]
+    * FUZZ: #
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1291ms]
+    * FUZZ: # This work is licensed under the Creative Commons 
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1298ms]
+    * FUZZ: # directory-list-2.3-medium.txt
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1316ms]
+    * FUZZ: 
+
+[Status: 200, Size: 94550, Words: 4684, Lines: 1159, Duration: 1335ms]
+    * FUZZ: # or send a letter to Creative Commons, 171 Second Street, 
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1332ms]
+    * FUZZ: #
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1335ms]
+    * FUZZ: #
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1361ms]
+    * FUZZ: # Copyright 2007 James Fisher
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1355ms]
+    * FUZZ: # Attribution-Share Alike 3.0 License. To view a copy of this 
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1370ms]
+    * FUZZ: # on atleast 2 different hosts
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1387ms]
+    * FUZZ: # Suite 300, San Francisco, California, 94105, USA.
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 1409ms]
+    * FUZZ: # Priority ordered case sensative list, where entries were found 
+
+[Status: 200, Size: 94551, Words: 4684, Lines: 1159, Duration: 565ms]
+    * FUZZ: 
+
+[Status: 403, Size: 282, Words: 20, Lines: 10, Duration: 4ms]
+    * FUZZ: server-status
+
+:: Progress: [220560/220560] :: Job [1/1] :: 6896 req/sec :: Duration: [0:00:44] :: Errors: 0 ::</code></pre><p id="6eb08693-3c4a-4c52-91a6-acf3ca7f125e" class="">
+</p><p id="5e697a21-edfa-4b4c-ae82-ee7fdf45fe67" class="">Here we found only one directory </p><p id="d3bcbaad-a118-4e30-a324-96a0da0393e2" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="43f39705-a597-4dd7-9d14-4ea42ccf07b7" class="code"><code class="language-Bash">[Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 7ms]
+    * FUZZ: dev</code></pre><p id="7c1302f2-1f41-4a9d-88cc-1a7c15a4ee84" class="">
+</p><p id="5532df70-d977-480d-908b-6b82723bc696" class="">
+</p><p id="7268972d-30be-4990-8161-cb6df37b1648" class="">
+</p><p id="2ba002a1-4aa3-4569-ab6a-ce0a317396ef" class="">On dev we found a webpage called boltwire:</p><p id="22e6a181-1b4c-4298-9964-a48a593d26b8" class="">
+</p><figure id="0ff00108-6129-40a6-8d28-88ad025d3338" class="image"><a href="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%205.png"><img style="width:1666px" src="Finding%20Dir%20on%20port%2080%20&amp;%208080%20efc4d6dabd144c0fbf5555d99847026b/Untitled%205.png"/></a></figure><p id="0b133856-a9db-4be8-8dd5-7d7e84cd18e4" class="">
+</p><p id="7494e0a1-7d72-4fd3-8695-cd44392feca0" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,720 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PEH Note Book</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7ac13ed3-ade0-4c0c-93bb-fbbdcdf4125e" class="page sans"><header><h1 class="page-title">PEH Note Book</h1><p class="page-description"></p></header><div class="page-body"><p id="0b6dc3a2-4a8c-494e-9a4c-4f63662f89d1" class="">
+</p><h3 id="77d065a1-cd8f-4bc5-9957-0513a3b95c36" class=""><strong>The Ethical Hacker Methodology</strong></h3><p id="c4ec36d1-ed82-4162-8d7d-b7e6a3ccce3c" class="">
+</p><figure id="618a0bd8-5d88-4bbc-a528-1bb920457211" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/5%20Stages%20of%20Testing%20618a0bd85d884bbca5281bb920457211.html">5 Stages of Testing</a></figure><h3 id="590a736f-39c8-4cfe-866f-33e7886cf44a" class=""><strong>Information Gathering (Reconnaissance)</strong></h3><p id="4cb44a5c-9cdd-4315-83d6-95979b30ddfd" class="">
+</p><figure id="12d75e11-4e02-45eb-b46d-291eb8511055" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Discovering%20Email%20Address%2012d75e114e0245ebb46d291eb8511055.html">Discovering Email Address</a></figure><figure id="1265b4c0-e5cf-465a-8ad3-592e65fc4cc2" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Gathering%20Breached%20Credentials%20with%20Breach-Parse%201265b4c0e5cf465a8ad3592e65fc4cc2.html">Gathering Breached Credentials with Breach-Parse</a></figure><figure id="fb7fe847-2603-4525-959f-429ea3b6defd" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Hunting%20Breached%20Credentials%20with%20DeHashed%20fb7fe84726034525959f429ea3b6defd.html">Hunting Breached Credentials with DeHashed</a></figure><figure id="6f0a136f-e7e4-40b4-bfc9-c738d2c24600" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Hunting%20Subdomains%206f0a136fe7e440b4bfc9c738d2c24600.html">Hunting Subdomains</a></figure><figure id="5f451d44-ed1a-480c-be19-d32252a7861a" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Identifying%20Website%20Technologies%205f451d44ed1a480cbe19d32252a7861a.html">Identifying Website Technologies</a></figure><figure id="160acabe-1bda-41db-bff6-30d7752439f6" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Google%20Fu%20160acabe1bda41dbbff630d7752439f6.html">Google Fu</a></figure><figure id="5d70dd1d-e586-4d4f-b494-56d47748c249" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Utilizing%20Social%20Media%205d70dd1de5864d4fb49456d47748c249.html">Utilizing Social Media</a></figure><figure id="d194004a-6c43-4d5c-8c4a-c0d83db58e53" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Quiz%20d194004a6c434d5c8c4ac0d83db58e53.html">Quiz</a></figure><h3 id="bc073070-0f10-4373-a850-5312376978e5" class=""><strong>Scanning &amp; Enumeration</strong></h3><p id="8723839f-a539-42a1-bdc6-a41d2bc88a2c" class="">
+</p><figure id="b2ba50fe-e95d-4f5e-b2e0-9f17401da60c" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Setting%20Up%20Vulnerable%20Lab%20b2ba50fee95d4f5eb2e09f17401da60c.html">Setting Up Vulnerable Lab</a></figure><figure id="c82fd359-ee3a-424d-a2f4-160398bdf5fe" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Scanning%20with%20Nmap%20c82fd359ee3a424da2f4160398bdf5fe.html">Scanning with Nmap</a></figure><figure id="babbd35f-ea78-4ed8-9049-57566d6d8c8e" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Enumerating%20HTTP%20and%20HTTPS%20babbd35fea784ed8904957566d6d8c8e.html">Enumerating HTTP and HTTPS</a></figure><figure id="0715170c-63d9-4c62-b889-2d4feae70375" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Enumerating%20SMB%200715170c63d94c62b8892d4feae70375.html">Enumerating SMB</a></figure><figure id="fbc1cf8c-b975-47e9-93e5-7208ef38c512" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Enumerating%20SSH%20fbc1cf8cb97547e993e57208ef38c512.html">Enumerating SSH</a></figure><figure id="4178c621-f258-4a38-a8ad-ca46dffb2a0b" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Researching%20Potential%20Vulnerabilities%204178c621f2584a38a8adca46dffb2a0b.html">Researching Potential Vulnerabilities</a></figure><figure id="b7a9ca0f-4cac-4778-9631-d36a32ab9cbc" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Scanning%20with%20Nessus%20b7a9ca0f4cac47789631d36a32ab9cbc.html">Scanning with Nessus</a></figure><p id="a89d1f27-22c8-45dc-850f-9bf0be57715d" class="">
+</p><p id="b0d85738-e345-4963-a5e2-4ef8e49009ff" class=""><strong>Exploitation Basics</strong></p><p id="f7be952b-6986-48b6-a01d-26c1e0bc9958" class="">
+</p><figure id="c623aa3d-4e40-4acb-96fa-19039405501b" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Reverse%20Shells%20vs%20Bind%20Shells%20c623aa3d4e404acb96fa19039405501b.html">Reverse Shells vs Bind Shells</a></figure><figure id="aee4ea99-b017-4130-b781-7e6ac8d1d829" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Staged%20vs%20Non-Staged%20Payloads%20aee4ea99b0174130b7817e6ac8d1d829.html">Staged vs Non-Staged Payloads</a></figure><figure id="85dadd2f-c4f8-463a-aa57-9c5841266637" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Gaining%20Root%20with%20Metasploit%2085dadd2fc4f8463aaa579c5841266637.html">Gaining Root with Metasploit</a></figure><figure id="0ba81976-9dce-44db-8d61-07724428eeda" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Manual%20Exploitation%200ba819769dce44db8d6107724428eeda.html">Manual Exploitation</a></figure><figure id="e892b123-cc32-4d84-8c15-39ef1518c940" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Brute%20Force%20Attacks%20e892b123cc324d848c1539ef1518c940.html">Brute Force Attacks</a></figure><figure id="111347a4-3cc8-4744-9f11-49be46b44b8e" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Credential%20Stuffing%20and%20Password%20Spraying%20111347a43cc847449f1149be46b44b8e.html">Credential Stuffing and Password Spraying</a></figure><p id="4e3943a9-4a05-4256-ac74-31747e3d8888" class="">
+</p><p id="77085268-c684-4547-bbdb-4020f24cdbe3" class=""><strong>New Capstone</strong></p><figure id="75f727f1-91ae-4d85-807a-2b4f8c8a096b" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Eternal%20Blue%2075f727f191ae4d85807a2b4f8c8a096b.html">Eternal Blue</a></figure><figure id="4d3a90de-967e-4d46-86de-d4576d00fa42" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Academy%204d3a90de967e4d4686ded4576d00fa42.html">Academy</a></figure><figure id="9da48b17-fb1d-4052-9698-afa444806f1b" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/DEV%209da48b17fb1d40529698afa444806f1b.html">DEV</a></figure><figure id="e6bf1794-7f43-405f-acc9-2170efa5cd39" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Butler%20e6bf17947f43405facc92170efa5cd39.html">Butler</a></figure><figure id="496d36f5-4f5e-4bf8-ad2b-232bb2e9564f" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Black%20Peral%20496d36f54f5e4bf8ad2b232bb2e9564f.html">Black Peral</a></figure><p id="7f428067-216d-41e4-b2ed-f0955c2eb30d" class="">
+</p><p id="c11cab57-b95e-4b74-85ba-5cf09d765102" class="">
+</p><p id="182bc252-f52c-4b9f-9546-8833b0b1f813" class=""><strong>Exploit Development (Buffer Overflows)</strong></p><p id="9018ab8f-9742-4a35-8121-56fc3ee25dea" class="">
+</p><figure id="4320a0bf-69fc-464e-bfad-ba5d791fb9ca" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Required%20Installations%204320a0bf69fc464ebfadba5d791fb9ca.html">Required Installations</a></figure><figure id="c36a2542-10bf-4ea1-9b5d-ae595dd606ae" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Buffer%20Overflows%20Explained%20c36a254210bf4ea19b5dae595dd606ae.html">Buffer Overflows Explained</a></figure><figure id="c70b5072-b88d-45c3-9562-3ba866c80519" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/To%20conduct%20a%20buffer%20overflow%20attack%20c70b5072b88d45c395623ba866c80519.html">To conduct a buffer overflow attack</a></figure><figure id="9f0d4987-60cd-43d5-992f-a41817c5a697" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Spiking%209f0d498760cd43d5992fa41817c5a697.html">Spiking </a></figure><figure id="a5d23196-2e62-472d-b7a7-5c979e9c0558" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Fuzzing%20a5d231962e62472db7a75c979e9c0558.html">Fuzzing</a></figure><figure id="6b4a9627-c0df-4adb-8f95-4d0723272a9e" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20the%20Offset%206b4a9627c0df4adb8f954d0723272a9e.html">Finding the Offset</a></figure><figure id="3e56a0ee-2b03-4828-bcc2-510d11b3baac" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Overwriting%20EIP%203e56a0ee2b034828bcc2510d11b3baac.html">Overwriting EIP</a></figure><figure id="d9972afe-172d-4c00-9d65-e4e67080868b" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20Bad%20Characters%20d9972afe172d4c009d65e4e67080868b.html">Finding Bad Characters</a></figure><figure id="b8af195d-6b19-4a1c-bafc-80bcf0b3e4bc" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20Right%20Module%20b8af195d6b194a1cbafc80bcf0b3e4bc.html">Finding Right Module </a></figure><figure id="68e979bd-a83b-484d-82a0-89ae58085249" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Generating%20Shellcode%20and%20Gaining%20Root%2068e979bda83b484d82a089ae58085249.html">Generating Shellcode and Gaining Root</a></figure><figure id="c2021bc1-2390-4855-a5ff-d057e0e70429" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Exploit%20Development%20Using%20Python3%20and%20Mona%20c2021bc123904855a5ffd057e0e70429.html">Exploit Development Using Python3 and Mona</a></figure><p id="ee5981fd-7709-45b1-966f-35cf2a752b57" class="">
+</p><p id="53091ed3-b81a-4f9c-981e-17713e1a960e" class="">
+</p><p id="6da87346-d529-4782-82e3-fadd9bbc963f" class=""><strong><strong>Active Directory Overview</strong></strong></p><p id="638953aa-b430-4eb4-9063-477e1817b87b" class="">
+</p><figure id="1b49c31c-8847-4726-803f-89ceb5b66d01" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Active%20Directory%20Overview%201b49c31c88474726803f89ceb5b66d01.html">Active Directory Overview</a></figure><figure id="3d3f6bfa-b10b-4e4c-a591-589977f8f482" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Physical%20Active%20Directory%20Components%203d3f6bfab10b4e4ca591589977f8f482.html">Physical Active Directory Components</a></figure><figure id="c64346ea-41ce-4c22-b66a-7e143d969662" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Logical%20Active%20Directory%20Components%20c64346ea41ce4c22b66a7e143d969662.html">Logical Active Directory Components</a></figure><figure id="1577b2c3-4c91-4632-9b94-faee05b6ca87" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Physical%20AD%20Components%20vs%20Logical%20AD%20Components%201577b2c34c9146329b94faee05b6ca87.html">Physical AD Components vs Logical AD Components</a></figure><p id="f4f015d1-9637-4ae5-bb66-48ec7a9fb026" class="">
+</p><p id="a7978c16-09b4-412c-8a97-8ec885541c4c" class="">
+</p><p id="20f3649c-23d5-41a6-b28b-7650ac5a1faf" class=""><strong>Active Directory Lab Build</strong></p><p id="9fd90046-867c-41e9-823f-49246112cdf7" class="">
+</p><figure id="6e1de8fd-84ea-435f-a3f0-9c550b05308f" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Active%20Directory%20Lab%20Build%206e1de8fd84ea435fa3f09c550b05308f.html">Active Directory Lab Build</a></figure><p id="79888b44-44c8-4b31-b586-abfae5cbe712" class="">
+</p><p id="93683f48-4ce2-4afb-8f9c-cfcb74c3cc62" class="">
+</p><p id="6d35cff9-d34c-4062-906d-b2ffdfcf9bd3" class=""><strong>Attacking Active Directory: Initial Attack Vectors</strong></p><p id="3a3aa368-b92c-4510-b0af-06a5f5058850" class="">
+</p><figure id="ded2b95b-bbf3-4e6a-a26d-ce64351313ce" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Introduction%20Initial%20Vector%20Attacks%20ded2b95bbbf34e6aa26dce64351313ce.html">Introduction / Initial Vector Attacks</a></figure><figure id="179ab4c0-69b6-4c3f-8a4b-00484cc32b99" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/LLMNR%20Poisoning%20Overview%20179ab4c069b64c3f8a4b00484cc32b99.html">LLMNR Poisoning Overview</a></figure><figure id="1c768e17-0c03-4e99-8220-517267a2d5fb" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Capturing%20NTLMv2%20Hashes%20with%20Responder%201c768e170c034e998220517267a2d5fb.html">Capturing NTLMv2 Hashes with Responder</a></figure><figure id="a376b2e9-25d3-49f7-931c-fe00c584e711" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Password%20Cracking%20with%20Hashcat%20a376b2e925d349f7931cfe00c584e711.html">Password Cracking with Hashcat</a></figure><figure id="0d592e34-75f9-4cc6-ac32-eaeb779dd00c" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/LLMNR%20Poisoning%20Defense%200d592e3475f94cc6ac32eaeb779dd00c.html">LLMNR Poisoning Defense</a></figure><figure id="f86df110-13d4-43f1-8360-fc736d7d741f" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/SMB%20Relay%20Attacks%20Overview%20f86df11013d443f18360fc736d7d741f.html">SMB Relay Attacks Overview</a></figure><figure id="dd536743-d808-4e07-8d23-c90372a0c8bb" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Discovering%20Hosts%20with%20SMB%20Signing%20Disabled%20dd536743d8084e078d23c90372a0c8bb.html">Discovering Hosts with SMB Signing Disabled</a></figure><figure id="3aebe0b4-a5e4-4c3c-b5f7-7b9c0857a5ba" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/SMB%20Relay%20Attacks%20Lab%203aebe0b4a5e44c3cb5f77b9c0857a5ba.html">SMB Relay Attacks Lab</a></figure><figure id="9eecf1bd-4eb2-4a8a-961d-607d59bd98f1" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Update%20AD%20Lab%209eecf1bd4eb24a8a961d607d59bd98f1.html">Update AD Lab</a></figure><figure id="519e58d2-5c7e-4b44-8242-07d465ea8aa5" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/SMB%20Relay%20Attack%20Defenses%20519e58d25c7e4b44824207d465ea8aa5.html">SMB Relay Attack Defenses</a></figure><figure id="ad5c012a-0dbe-47ef-852d-ec6af1d3e6bb" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Gaining%20Shell%20Access%20Theory%20-%20psexec%20ad5c012a0dbe47ef852dec6af1d3e6bb.html">Gaining Shell Access Theory - psexec</a></figure><figure id="70036627-99ee-4368-925b-764ef49d17e2" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Gaining%20Shell%20Access%20Practical%20-%20psexec%207003662799ee4368925b764ef49d17e2.html">Gaining Shell Access Practical - psexec</a></figure><figure id="959e090a-6630-42aa-ad77-51d7c433bb91" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/IPv6%20Attacks%20Overview%20959e090a663042aaad7751d7c433bb91.html">IPv6 Attacks Overview</a></figure><figure id="0761aae3-0340-484a-9806-3fcb9c5a2dd5" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/IPv6%20Attack%20Defenses%200761aae30340484a98063fcb9c5a2dd5.html">IPv6 Attack Defenses</a></figure><figure id="29e518d6-4026-4628-82c3-d1fa3a45e364" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Passback%20Attacks%2029e518d64026462882c3d1fa3a45e364.html">Passback Attacks</a></figure><figure id="0737bd91-3999-42d5-ba4b-08a04fd61de2" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Initial%20Internal%20Attack%20Strategy%200737bd91399942d5ba4b08a04fd61de2.html">Initial Internal Attack Strategy</a></figure><p id="476e619e-a5af-4165-af4b-51ed13ec0786" class="">
+</p><p id="993b110e-c852-4aca-b719-db8cfdd87936" class="">
+</p><p id="d235f822-38b5-4a14-b9ba-fdf489e74c23" class=""><strong>Attacking Active Directory: Post-Compromise Enumeration</strong></p><p id="5c7ea3f5-86a4-4ec1-b1aa-d0fdfff4ecec" class="">
+</p><figure id="665cdb55-722a-406b-bf66-febbb335cc9c" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Introduction%20665cdb55722a406bbf66febbb335cc9c.html">Introduction</a></figure><figure id="8c034d38-d0ac-4c22-ac97-7ed676ddce62" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Domain%20Enumeration%20with%20ldapdomaindump%208c034d38d0ac4c22ac977ed676ddce62.html">Domain Enumeration with ldapdomaindump</a></figure><figure id="a0894927-d4dd-4404-811d-a8a9e04e0f93" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Domain%20Enumeration%20with%20Bloodhound%20a0894927d4dd4404811da8a9e04e0f93.html">Domain Enumeration with Bloodhound</a></figure><figure id="a98601eb-d18d-4b91-93fd-05ffea58bc99" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Domain%20Enumeration%20with%20Plumhound%20a98601ebd18d4b9193fd05ffea58bc99.html">Domain Enumeration with Plumhound</a></figure><figure id="f603e718-c2cb-4a91-b61a-48cd706ba280" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Domain%20Enumeration%20with%20PingCastle%20f603e718c2cb4a91b61a48cd706ba280.html">Domain Enumeration with PingCastle</a></figure><p id="8710ec96-af06-4dc0-b388-1cb1b7c18523" class="">
+</p><p id="ea8d84d5-feac-44ed-b21b-3558609127d6" class=""><strong>Attacking Active Directory: Post-Compromise Attacks</strong></p><p id="88a1f246-a1e6-4279-a043-c3fdaac91a8a" class="">
+</p><figure id="b7c03ccb-f016-44cf-b431-8aa57dc9c286" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Pass%20Attacks%20Overview%20b7c03ccbf01644cfb4318aa57dc9c286.html">Pass Attacks Overview</a></figure><figure id="efdc2629-d630-48d9-8c49-f8f14a5f8b78" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Crackmapexec%20Help%20efdc2629d63048d98c49f8f14a5f8b78.html">Crackmapexec Help</a></figure><figure id="1a47b577-d4f3-4d24-89cb-aa8b85c004ba" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Pass%20Attacks%201a47b577d4f34d2489cbaa8b85c004ba.html">Pass Attacks</a></figure><figure id="9879e096-fd36-4f66-8e62-1c05494a91d4" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Dumping%20and%20Cracking%20Hashes%209879e096fd364f668e621c05494a91d4.html">Dumping and Cracking Hashes</a></figure><figure id="697975b0-36a9-433f-83d8-9c585e502390" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Hashcat%20Cracking%20%E2%80%9CNT%E2%80%9D%20697975b036a9433f83d89c585e502390.html">Hashcat Cracking “NT”</a></figure><figure id="dc2d681c-a5cf-4bb7-b793-1ba9600431f9" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Pass%20Attacks%20Mitigations%20dc2d681ca5cf4bb7b7931ba9600431f9.html">Pass Attacks Mitigations</a></figure><figure id="333cfe13-27e0-4292-a95d-a26fbeb90642" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Kerberoasting%20Overview%20333cfe1327e04292a95da26fbeb90642.html">Kerberoasting Overview</a></figure><figure id="96e530ac-7a65-4329-824a-08f055dd6fa7" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Kerberoasting%20Walkthrough%20-%20GetUserSPNs%20py%2096e530ac7a654329824a08f055dd6fa7.html">Kerberoasting Walkthrough - GetUserSPNs.py</a></figure><figure id="f076aa5d-1c6d-4ff2-ac9c-f631a21524e9" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Kerberoasting%20Mitigation%20f076aa5d1c6d4ff2ac9cf631a21524e9.html">Kerberoasting Mitigation</a></figure><figure id="bdcbd314-1bdd-4922-9bf8-a8e6b2960a61" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Token%20Impersonation%20Overview%20bdcbd3141bdd49229bf8a8e6b2960a61.html">Token Impersonation Overview</a></figure><figure id="d8ed5ca8-37c7-4243-a398-ee0814c11c6e" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Token%20Impersonation%20Walkthrough%20d8ed5ca837c74243a398ee0814c11c6e.html">Token Impersonation Walkthrough</a></figure><figure id="1626a9b3-a0d1-4133-a347-d4493b584a96" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Token%20Impersonation%20Mitigations%201626a9b3a0d14133a347d4493b584a96.html">Token Impersonation Mitigations</a></figure><figure id="44130b4a-6410-4ea3-9c44-8d6d7b8a15fe" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/URL%20File%20Attacks%2044130b4a64104ea39c448d6d7b8a15fe.html">URL File Attacks</a></figure><figure id="03a106a5-0a03-4b82-a85b-730151474b46" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/GPP(Group%20Policy%20Preference)%20cPassword%20Attacks%20and%2003a106a50a034b82a85b730151474b46.html">GPP(Group Policy Preference) / cPassword Attacks and Mitigations</a></figure><figure id="7680dea8-b17a-4886-b53f-d21922f36ad3" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Mimikatz%20Overview%207680dea8b17a4886b53fd21922f36ad3.html">Mimikatz Overview</a></figure><figure id="d55d81bf-c3ba-4c48-9102-cdbc0a81dc56" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Credential%20Dumping%20with%20Mimikatz%20d55d81bfc3ba4c489102cdbc0a81dc56.html">Credential Dumping with Mimikatz</a></figure><figure id="de82f30b-a77e-420e-a856-e42be1c5193a" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Post-Compromise%20Attack%20Strategy%20de82f30ba77e420ea856e42be1c5193a.html">Post-Compromise Attack Strategy</a></figure><p id="56bd3063-9a42-40b1-a565-e0a23c69c709" class="">
+</p><p id="85bb2220-553e-4a08-838c-70f13708b612" class=""><strong>We&#x27;ve Compromised the Domain - Now What?</strong></p><p id="a56698c1-9326-4bb7-923b-3e98aba6c534" class="">
+</p><figure id="a2ed8da3-b575-451d-b03c-a6f18b33ad6e" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Post-Domain%20Compromise%20Attack%20Strategy%20a2ed8da3b575451db03ca6f18b33ad6e.html">Post-Domain Compromise Attack Strategy</a></figure><figure id="b2f7ca9e-5201-436b-b637-39162ad3cf6c" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Dumping%20the%20NTDS%20dit%20b2f7ca9e5201436bb63739162ad3cf6c.html">Dumping the NTDS.dit</a></figure><figure id="67461ee7-6d8c-4dd4-8ddb-118a555d563d" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Golden%20Ticket%20Attacks%20Overview%2067461ee76d8c4dd48ddb118a555d563d.html">Golden Ticket Attacks Overview</a></figure><figure id="acb107d1-2a6b-481b-9700-0f4e3a251892" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Golden%20Ticket%20Attacks%20acb107d12a6b481b97000f4e3a251892.html">Golden Ticket Attacks</a></figure><p id="8e360038-44fe-447d-9f5a-c2713a9c2be5" class="">
+</p><p id="22c2d7b5-dd2a-42cd-a3b9-71650f309709" class=""><strong>Additional Active Directory Attacks</strong></p><p id="ece8d141-64fa-4861-807f-f4fe71c917f6" class="">
+</p><figure id="6570e538-0fc3-431f-b721-be071aa173a9" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Recent%20(%20and%20Relevant%20)%20Vulnerabilities%206570e5380fc3431fb721be071aa173a9.html">Recent ( and Relevant ) Vulnerabilities</a></figure><figure id="ad0d76d7-006e-4534-b67d-105d3f2224a8" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Zerologon%20ad0d76d7006e4534b67d105d3f2224a8.html">Zerologon</a></figure><figure id="9a1c90b0-1f81-470d-b1df-0ff8f90db1f4" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/PrintNightmare%20(CVE-2021-1675)%20Walkthrough%209a1c90b01f81470db1df0ff8f90db1f4.html">PrintNightmare (CVE-2021-1675) Walkthrough</a></figure><p id="0af2ebf1-0f4a-4672-8e59-35b8d9156c81" class="">
+</p><p id="893abd51-a557-4004-a24b-d97891db5c2d" class=""><strong>Post Exploitation</strong></p><p id="eccced46-5feb-434e-8427-e138d9c42628" class="">
+</p><p id="ba7fe175-f584-435d-8feb-787d8c479651" class="">
+</p><p id="2f13789b-d186-45d4-85d0-f46247d0180b" class="">
+</p><p id="72f30436-2240-4fa2-bfc8-930569d87427" class=""><strong>Web Application Enumeration, Revisited</strong></p><p id="933987c9-4d80-4736-8c11-08918df95228" class="">
+</p><figure id="84d8063f-b0be-4b08-a8ce-0c4ec1f3a1bb" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20Subdomains%20with%20Assetfinder%2084d8063fb0be4b08a8ce0c4ec1f3a1bb.html">Finding Subdomains with Assetfinder</a></figure><figure id="49669ce8-2313-416f-936c-c96c200cc9f2" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20Subdomains%20with%20Amass%2049669ce82313416f936cc96c200cc9f2.html">Finding Subdomains with Amass</a></figure><figure id="ad7f2db2-bed9-4c68-a632-933d27b9598a" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Finding%20Alive%20Domains%20with%20Httprobe%20ad7f2db2bed94c68a632933d27b9598a.html">Finding Alive Domains with Httprobe</a></figure><figure id="4de32df3-ad4e-448c-93e5-59e2b5a7323d" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Screenshotting%20Websites%20with%20GoWitness%204de32df3ad4e448c93e559e2b5a7323d.html">Screenshotting Websites with GoWitness</a></figure><figure id="1dd6924c-fb58-4b9d-a606-746b055d0ae3" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Automating%20the%20Enumeration%20Process%201dd6924cfb584b9da606746b055d0ae3.html">Automating the Enumeration Process</a></figure><figure id="4cbf1ea8-8d24-4696-a4bf-6bcd7330c2c9" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Additional%20Resources%20%5BIMP%5D%204cbf1ea88d244696a4bf6bcd7330c2c9.html">Additional Resources [IMP]</a></figure><p id="7e034068-5d16-4f66-a5ba-4b5a2006e808" class="">
+</p><p id="abb211dc-20ce-47a3-ac0d-44a3e63d70bd" class=""><strong>Find &amp; Exploit Common Web Vulnerabilities</strong></p><p id="4fbd4620-fb85-4720-b4c1-1f1dcbab8937" class="">
+</p><p id="c4c0cafe-26f5-4bb2-b817-fa5dc0faa9ea" class=""><strong>Always refer Portswigger web security academy for confusions and doubts.</strong></p><p id="ab33c696-66db-4173-890a-3d6bcfadb566" class="">
+</p><figure id="82a516b3-a7e4-4d1d-b418-52e4606ebfe8" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/XSS%20-%20Challenge%20Walkthrough%2082a516b3a7e44d1db41852e4606ebfe8.html">XSS - Challenge Walkthrough</a></figure><figure id="631a1a0e-8d73-46a7-a397-fbea63514409" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Command%20Injection%200x01%20631a1a0e8d7346a7a397fbea63514409.html">Command Injection 0x01</a></figure><figure id="8d1d0bf2-7b0b-466e-9eb1-0da711fe50af" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af.html">Command Injection 0x02</a></figure><figure id="daa53d86-4b66-476d-b4c8-b6b096acd606" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Command%20injection%200x03%20%5BChallenge%5D%20daa53d864b66476db4c8b6b096acd606.html">Command injection 0x03 [Challenge]</a></figure><figure id="4ed9c1ef-034b-49be-aa63-de6805a3c687" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Insecure%20File%20Upload%20-%20Basic%20Bypass%204ed9c1ef034b49beaa63de6805a3c687.html">Insecure File Upload - Basic Bypass</a></figure><figure id="2dd00ff5-2ee7-4111-b52e-5f7bcd38c91a" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Insecure%20File%20Upload%20-%20Magic%20Bytes%202dd00ff52ee74111b52e5f7bcd38c91a.html">Insecure File Upload - Magic Bytes</a></figure><p id="58546eb7-4287-4b5c-ae13-58992932be7c" class="">
+</p><p id="4de7e5de-c93f-4583-8b55-a34d05002b94" class="">
+</p><p id="79a46ed6-f074-4b49-b310-66edf3d8da3a" class=""><strong>Wireless Penetration Testing</strong></p><figure id="f746095a-4cbf-4caf-bd98-4338c3a2d17d" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Wireless%20Penetration%20Testing%20Overview%20f746095a4cbf4cafbd984338c3a2d17d.html">Wireless Penetration Testing Overview</a></figure><figure id="2ebbbcf2-0a81-4cbe-9f28-9844a586d43c" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/WPA2%20PSK%20Exploit%202ebbbcf20a814cbe9f289844a586d43c.html">WPA2 PSK Exploit</a></figure><p id="bf3fa431-68f4-4953-9ee3-77e4fbdeea95" class="">
+</p><p id="47886015-ed36-41fd-aeb4-c219ce08ee69" class=""><strong>Legal Documents and Report Writing</strong></p><p id="29e99eb5-fe51-42e2-94ec-f9c1e06946fb" class="">
+</p><figure id="9786d6f1-1429-43e0-b9e6-19e2cc6de696" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/001_Common_Legal_Documents%209786d6f1142943e0b9e619e2cc6de696.html">001_Common_Legal_Documents</a></figure><figure id="05d19d76-719e-4ead-b1d0-4902b415c402" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/002_Pentest_Report_Writing%2005d19d76719e4eadb1d04902b415c402.html">002_Pentest_Report_Writing</a></figure><figure id="fff69dc4-3eea-4a89-ae16-c785049cdeeb" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/003%20Reviewing%20a%20Real%20Pentest%20Report%20fff69dc43eea4a89ae16c785049cdeeb.html">003 Reviewing a Real Pentest Report</a></figure><p id="de73f6cc-6297-4868-aae2-520e3ee0e105" class="">
+</p><p id="529b02f1-24ae-4823-ba14-6ec479388ce9" class=""><strong>Career Advice</strong></p><figure id="ffe8d9bd-9c9a-4f37-98e0-a92fc49f2cd0" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Career%20Advice%20ffe8d9bd9c9a4f3798e0a92fc49f2cd0.html">Career Advice</a></figure><p id="ede61a03-07a2-4e8f-8bb1-388bef4eb861" class="">
+</p><p id="7a74798c-1c60-4e93-9f30-1365fbbda4b5" class="">
+</p><p id="8bcc3e15-28fc-4e27-b26d-2311ff7e8f90" class=""><strong>Thing to complete before giving exam</strong></p><figure id="09dc587b-bddb-4c24-af42-76a34ae9bc39" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Recap%2009dc587bbddb4c24af4276a34ae9bc39.html">Recap</a></figure><figure id="c0aad305-9475-4194-8173-dea0032e7761" class="link-to-page"><a href="PEH%20Note%20Book%207ac13ed3ade04c0c93bbfbbdcdf4125e/Revise%20c0aad305947541948173dea0032e7761.html">Revise</a></figure><p id="902ac61a-83c7-4b02-81c2-721829abb887" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

